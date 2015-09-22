@@ -1,0 +1,38 @@
+{
+  "name": "har-download",
+  "description": "har download 从har文件下载整个网站所有资源",
+  "version": "1.0.2",
+  "author": {
+    "name": "wshxbqq",
+    "email": "wshxbqq@gmail.com"
+  },
+  "homepage": "https://github.com/wshxbqq/har-download",
+  "keywords": [
+    "HAR",
+    "HAR-download",
+    "HAR 爬虫",
+    "Spider"
+  ],
+  "license": "MIT",
+  "bin": {
+    "har-download": "bin/har-download"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wshxbqq/har-download.git"
+  },
+  "bugs": {
+    "url": "http://github.com/wshxbqq/har-download/issues"
+  },
+  "preferGlobal": true,
+  "dependencies": {
+    "request": "2.63.0",
+    "mkdirp": "0.5.1"
+  }
+ 
+ 
+}
