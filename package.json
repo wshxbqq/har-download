@@ -1,7 +1,8 @@
 {
   "name": "har-download",
+  "readmeFilename": "readme.md",
   "description": "har download 从har文件下载整个网站所有资源",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "wshxbqq",
     "email": "wshxbqq@gmail.com"
@@ -18,7 +19,7 @@
     "har-download": "bin/har-download"
   },
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 4.0.0"
   },
   "main": "index.js",
   "repository": {
@@ -30,9 +31,7 @@
   },
   "preferGlobal": true,
   "dependencies": {
-    "request": "2.63.0",
-    "mkdirp": "0.5.1"
+    "mkdirp": "^0.5.1",
+    "request": "^2.63.0"
   }
- 
- 
 }

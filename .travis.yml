@@ -1,0 +1,12 @@
+sudo: true
+os:
+  - linux
+  - osx
+language: node_js
+before_script:
+  - npm install
+  - node lib/install.js
+node_js:
+  - '6'
+  - '5'
+  - '4'
