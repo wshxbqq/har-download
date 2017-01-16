@@ -11,3 +11,37 @@ Download all resources from HAR file
 har-download  demo.HAR  export/folder
 ```
 此命令将把 demo.HAR 中标记的资源下载到 export/folder 目录里面
+
+### Get HAR from chrome dev tool
+
+![](https://raw.githubusercontent.com/wshxbqq/har-download/master/test/test.png)
+
+
+## API
+
+__fromText:__
+
+```javascript
+const har = require("har");
+har.fromText(fs.readFileSync(harString, 'utf-8'), "./outPutDir/", function(err) {
+    console.log(err);
+});
+
+```
+
+formFile:__
+
+```javascript
+const har = require("har");
+har.formFile("demo.HAR", "./outPutDir/", function(err) {
+    console.log(err);
+});
+
+```
+
+## CLI
+
+```bash
+har-download  demo.HAR  export/folder
+```
+

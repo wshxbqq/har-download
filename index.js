@@ -50,52 +50,82 @@ function getTasks(jsonText, localpath) {
     return tasks;
 }
 
-function download(task) {
-    return new Promise(function(resolve, reject) {
-        mkdirp(task.dirName, function(err) {
-            let req = request
-                .get(task.url)
-                .on('error', function(err) {
-                    console.log(err);
-                    reject(err);
+function download(task, callback) {
+    mkdirp(task.dirName, function(err) {
+        let headers = {};
+        for (let i in task.raw.request.headers) {
+            let headObj = task.raw.request.headers[i];
+            headers[headObj.name] = headObj.value;
+        }
+        let options = {
+            url: task.url,
+            method: task.raw.request.method,
+            headers: headers
+        };
+        let req = request(options)
+            .on('error', function(err) {
+                callback({
+                    err: err,
+                    msg: task
+                });
+            })
+            .on('end', function() {
+                req.finished = true;
+            });
+        let timeout = setTimeout(() => {
+            if (!req.finished) {
+                req.emit("error", "time out:" + task.url);
+            }
+        }, TIME_OUT);
+        req.pipe(fs.createWriteStream(`${task.dirName}/${task.fileName}.${task.extName}`))
+            .on('error', function(err) {
+                callback(err);
+                callback({
+                    err: err,
+                    msg: task
+                });
+            }).on('finish', () => {
+                clearTimeout(timeout);
+                callback({
+                    err: false,
+                    msg: task
                 })
-                .on('end', function() {
-                    req.finished = true;
-                });
-            let timeout = setTimeout(() => {
-                if (!req.finished) {
-                    req.emit("error", "time out:" + task.url);
-                }
-            }, TIME_OUT);
-            req.pipe(fs.createWriteStream(`${task.dirName}/${task.fileName}.${task.extName}`))
-                .on('error', function(err) {
-                    console.log(err);
-                    reject(err);
-                }).on('finish', () => {
-                    clearTimeout(timeout);
-                    console.log("finish:" + task.url);
-                    resolve(resolve)
-                });
-        });
-    })
+            });
+    });
 }
 
 let index = module.exports = {
-    fromText: function(jsonText, localpath) {
+    formFile: function(harPath, localpath, timeout, callback) {
+        let har = fs.readFileSync(harPath, 'utf-8');
+        this.fromText(har, localpath, timeout, function(err) {
+            callback(err);
+        });
+    },
+    fromText: function(jsonText, localpath, timeout, callback) {
+        if (typeof(timeout) == "function") {
+            callback = timeout;
+            timeout = 5000;
+        }
+        TIME_OUT = timeout || 5000;
+        let error = [];
         let tasks = getTasks(jsonText, localpath);
-        let p = Promise.resolve();
-        tasks.forEach(function(task, index) {
-            p = p.then(function() {
-                return download(task);
-            }, function(err) {
-                console.log(err);
-                return download(task);
-            });
-        });
-        p.then(function() {
-            console.log(`all finished`);
-        });
 
+        function loop(task) {
+            download(task, function(data) {
+                if (data.err) {
+                    error.push(data);
+                } else {
+
+                }
+                let t = tasks.pop();
+                if (t) {
+                    loop(t);
+                } else {
+                    callback(error);
+                }
+            });
+        }
+        loop(tasks.pop());
     },
     init: function(args) {
         if (args.length !== 2) {
@@ -103,6 +133,12 @@ let index = module.exports = {
             return;
         }
         let har = fs.readFileSync(args[0], 'utf-8');
-        this.fromText(har, args[1]);
+        this.fromText(har, args[1], 20, function(err) {
+            if (err.length) {
+                console.log(err);
+            } else {
+                console.log("finished");
+            }
+        });
     }
 };
