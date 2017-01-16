@@ -1,11 +1,9 @@
 'use strict';
-
 const mkdirp = require('mkdirp');
 const fs = require('fs');
 const request = require('request');
 const path = require('path');
 const url = require('url');
-
 let TIME_OUT = 5000;
 
 function mapMimiType(tp) {
@@ -59,8 +57,7 @@ function download(task, callback) {
         }
         let options = {
             url: task.url,
-            method: task.raw.request.method,
-            headers: headers
+            method: task.raw.request.method
         };
         let req = request(options)
             .on('error', function(err) {
@@ -133,7 +130,7 @@ let index = module.exports = {
             return;
         }
         let har = fs.readFileSync(args[0], 'utf-8');
-        this.fromText(har, args[1], 20, function(err) {
+        this.fromText(har, args[1], 10000, function(err) {
             if (err.length) {
                 console.log(err);
             } else {

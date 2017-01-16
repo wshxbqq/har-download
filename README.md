@@ -29,7 +29,7 @@ har.fromText(fs.readFileSync(harString, 'utf-8'), "./outPutDir/", function(err) 
 
 ```
 
-formFile:__
+__formFile:__
 
 ```javascript
 const har = require("har");

@@ -1,9 +1,11 @@
 'use strict';
-var har = require("../");
+const har = require("../");
 const fs = require("fs");
-har.fromText(fs.readFileSync("demo.HAR", 'utf-8'), "./dist/", function(err) {
+const path = require("path");
+
+har.fromText(fs.readFileSync(path.join(__dirname, "demo.HAR"), 'utf-8'), path.join(__dirname, "dist"), function(err) {
     console.log(err);
-    har.formFile("demo.HAR", "./dist1/", function(err) {
+    har.formFile(path.join(__dirname, "demo.HAR"), path.join(__dirname, "dist1"), function(err) {
         console.log(err);
     });
 });
