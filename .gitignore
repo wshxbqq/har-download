@@ -1,4 +1,2 @@
 node_modules
-test/tmp
-vendor/pngquant*
-/test/1_mini.png
+test/dist

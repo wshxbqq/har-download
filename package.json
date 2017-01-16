@@ -1,37 +1,40 @@
 {
-  "name": "har-download",
-  "readmeFilename": "readme.md",
-  "description": "har download 从har文件下载整个网站所有资源",
-  "version": "1.0.3",
-  "author": {
-    "name": "wshxbqq",
-    "email": "wshxbqq@gmail.com"
-  },
-  "homepage": "https://github.com/wshxbqq/har-download",
-  "keywords": [
-    "HAR",
-    "HAR-download",
-    "HAR 爬虫",
-    "Spider"
-  ],
-  "license": "MIT",
-  "bin": {
-    "har-download": "bin/har-download"
-  },
-  "engines": {
-    "node": ">= 4.0.0"
-  },
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wshxbqq/har-download.git"
-  },
-  "bugs": {
-    "url": "http://github.com/wshxbqq/har-download/issues"
-  },
-  "preferGlobal": true,
-  "dependencies": {
-    "mkdirp": "^0.5.1",
-    "request": "^2.63.0"
-  }
+    "name": "har-download",
+    "readmeFilename": "README.md",
+    "description": "har download 从 chrome 生成的 har 文件中下载整个网站所有资源",
+    "version": "1.0.4",
+    "author": {
+        "name": "wshxbqq",
+        "email": "wshxbqq@gmail.com"
+    },
+    "scripts": {
+        "test": "node test/index.js"
+    },
+    "homepage": "https://github.com/wshxbqq/har-download",
+    "keywords": [
+        "HAR",
+        "HAR-download",
+        "HAR 爬虫",
+        "Spider"
+    ],
+    "license": "MIT",
+    "bin": {
+        "har-download": "bin/har-download"
+    },
+    "engines": {
+        "node": ">= 4.0.0"
+    },
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wshxbqq/har-download.git"
+    },
+    "bugs": {
+        "url": "http://github.com/wshxbqq/har-download/issues"
+    },
+    "preferGlobal": true,
+    "dependencies": {
+        "mkdirp": "^0.5.1",
+        "request": "^2.63.0"
+    }
 }
